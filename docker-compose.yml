@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  dental-voice-engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dental-voice-engine
+    restart: unless-stopped
+    
+    # GPU support (requires NVIDIA Container Toolkit)
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - CUDA_VISIBLE_DEVICES=0
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=INFO
+    
+    volumes:
+      # Mount code for development
+      - ./app:/app/app
+      - ./scripts:/app/scripts
+      - ./examples:/app/examples
+      
+      # Persistent model storage
+      - ./models:/app/models
+      - ./pretrained_models:/app/pretrained_models
+      
+      # Logs
+      - ./logs:/app/logs
+      
+    ports:
+      - "8000:8000"
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    
+    # Resource limits
+    # Adjust based on your hardware
+    # mem_limit: 16g
+    # cpus: '4.0'
+    
+    # Network
+    networks:
+      - dental-voice-net
+
+networks:
+  dental-voice-net:
+    driver: bridge
+
+# For production with separate database, add:
+# services:
+#   postgres:
+#     image: postgres:15
+#     environment:
+#       POSTGRES_DB: dental_voice
+#       POSTGRES_USER: dental_user
+#       POSTGRES_PASSWORD: secure_password
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     networks:
+#       - dental-voice-net
+#
+# volumes:
+#   postgres_data:
