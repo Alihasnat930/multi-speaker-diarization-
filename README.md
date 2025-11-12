@@ -1,13 +1,72 @@
-# 🦷 Dental Voice Intelligence System
+# 🦷 Multi-Speaker Diarization System
 
-**Real-time, self-hosted voice intelligence for dental clinics using 100% open-source models**
+[![Live Demo](https://img.shields.io/badge/🎥_Live_Demo-Available-brightgreen?style=for-the-badge)](https://github.com/Alihasnat930/multi-speaker-diarization-#-live-demo)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
+[![Version](https://img.shields.io/badge/Version-1.0-blue?style=flat-square)](https://github.com/Alihasnat930/multi-speaker-diarization-/releases/tag/v1.0)
 
-A complete, production-ready system for processing dental consultations with:
-- ✅ Real-time Voice Activity Detection (VAD) using Silero VAD
-- ✅ Speaker diarization (Dentist vs Patient) with SpeechBrain
-- ✅ ASR transcription with clinical/dental terminology support
-- ✅ Speaker identification via voice embeddings and enrollment
-- ✅ Automated SOAP note generation using local LLMs (Mistral/Llama3 with LoRA)
+**AI-powered multi-speaker voice intelligence system with automatic speaker detection and transcription**
+
+## 🎥 Live Demo
+
+**Experience automatic multi-speaker identification in action!**
+
+### 🎯 Demo Highlights:
+- 🎤 **Auto-detects 2-6 speakers** - No pre-enrollment needed
+- 📝 **Real-time transcription** - Powered by OpenAI Whisper
+- 🔊 **Advanced VAD** - Energy-based voice activity detection with smoothing
+- 🧠 **Smart clustering** - Cosine distance with normalized embeddings
+- 🌐 **Web interface** - Simple drag-and-drop upload
+
+### 🚀 Quick Demo (2 minutes):
+
+```bash
+# Clone and setup
+git clone https://github.com/Alihasnat930/multi-speaker-diarization-.git
+cd multi-speaker-diarization-
+python -m venv venv
+venv\Scripts\activate  # Linux/Mac: source venv/bin/activate
+pip install -r requirements.txt
+
+# Start server
+python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+# Open browser → http://localhost:8000
+# Upload audio with 2+ speakers → Get instant results!
+```
+
+### 📊 Example Output:
+
+```
+🔍 Processing Audio...
+VAD detected 45 voice segments
+Testing 2 speakers: silhouette score = 0.432
+Testing 3 speakers: silhouette score = 0.298
+Auto-detected 2 speakers (score: 0.432)
+Speaker distribution: {0: 23, 1: 22}
+
+✅ Results:
+[00:00 - 00:03] Speaker_0: "How are you feeling today?"
+[00:03 - 00:06] Speaker_1: "I've been having some pain in my tooth"
+[00:07 - 00:12] Speaker_0: "Let me take a look at that for you"
+[00:13 - 00:15] Speaker_1: "Thank you doctor"
+```
+
+### 🎬 Live Demo Video:
+
+> **Recording a demo?** Upload to YouTube and add link here:
+> `![Demo Video](https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg)`
+
+---
+
+## 📋 Overview
+
+A complete, production-ready system for processing multi-speaker conversations with:
+- ✅ Real-time Voice Activity Detection (VAD) using energy-based detection
+- ✅ Speaker diarization with SpeechBrain ECAPA-TDNN embeddings
+- ✅ ASR transcription with OpenAI Whisper (no FFmpeg required)
+- ✅ Automatic speaker identification via clustering (2-6 speakers)
+- ✅ Web interface for easy audio upload and processing
 
 ## 🎯 Key Features
 
